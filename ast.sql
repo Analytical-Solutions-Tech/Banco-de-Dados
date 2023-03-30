@@ -1,55 +1,52 @@
 CREATE DATABASE ast;
 USE ast;
-
 -- Tabela de cadastro do cliente
 CREATE TABLE cliente(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome_fantasia VARCHAR(100) NOT NULL,
-    cnpj CHAR(14) NOT NULL,
-    contato VARCHAR(50),
-    email VARCHAR(255) NOT NULL,
-    senha VARCHAR(255) NOT NULL
+    idCliente INT PRIMARY KEY AUTO_INCREMENT,
+    Cnpj char(14) NOT NULL,
+    Nome_fantasia VARCHAR(100) NOT NULL,
+    Contato VARCHAR(50),
+    Email VARCHAR(255) NOT NULL,
+    Senha VARCHAR(255) NOT NULL
 );
 
 INSERT INTO cliente VALUES
-(NULL, 'CaramicoFish', '12345678000160', '(11)99999-9999', 'caramico@gmail.com', '1234567senha');
-INSERT INTO cliente (nome_fantasia,cnpj,contato,email,senha) VALUES
-('fisheat', '12345678000190', '(11)98888-8888', 'fish_eat@gmil.com', '23092500senha'),
-('lovefish','12345678000170', '(11)97777-7777', 'love_fish@gmail.com','1234senha'),
-('wantfish', '12345678000188', '(11)96666-6666','want_fish@gmail.com','808987senha'),
-('fishsaudavel','12345678000199', '(11)95555-5555', 'fish_saudavel@gmail.com', '202526senha'),
-('queropeixe','12345678000129','(11)92222-2222','quero_peixe09@gmail.com','7475senha'),
-('peixefeliz','12345678000100','(11)93333-3333','peixe_feliz19@gmail.com','606268senha');
-
-UPDATE cliente SET nome_fantasia = 'Caralápia' WHERE id = 1;
-
+(DEFAULT, '19773504000172', 'Headline Fish', '(61) 3452-2863', 'headline.fish@gmail.com', '6Ll3h9*JZ6m6'),
+(DEFAULT, '19773504000172','Fish Eat', '(61) 2784-4764', 'fish.eat@gmil.com', 'U!mA4DpG22%i'),
+(DEFAULT, '19773504000172', 'Love Fish', '(67) 2549-8845', 'love.fish@gmail.com','Oe3s21r1*jx*'),
+(DEFAULT, '19773504000172', 'Want Fish', '(11) 3434-7103','want.fish@gmail.com','jT999!hXTSOD'),
+(DEFAULT, '19773504000172', 'Fish Navio','(69) 2616-5122', 'fish.navio@gmail.com', '8oC7u8%u4A1^'),
+(DEFAULT, '19773504000172', 'Fish Bem','(96) 2342-4576','fish.bem@gmail.com','6D^z121qIWOp'),
+(DEFAULT, '19773504000172', 'New Fish','(63) 3525-4692','new.fish@gmail.com','6D^z121qIWOp');
 SELECT * FROM cliente;
 
 CREATE TABLE sensor(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    numero_serie INT PRIMARY KEY NOT NULL,
     tipo VARCHAR(255),
-    valor DOUBLE,
-    modelo VARCHAR(255)
+    modelo VARCHAR(255),
+     valor DOUBLE
 );
 
+
 INSERT INTO sensor VALUES
-(DEFAULT, 'temperatura', 20, 'LM35'),
-(DEFAULT, 'umidade e temperatura', 15, 'DHT11'),
-(DEFAULT, 'luminosidade', 23, 'LDR5'),
-(DEFAULT, 'bloqueio', 10, 'TCRT5000');
+(12022003, 'temperatura','LM35', 20),
+(07042019, 'umidade e temperatura','DHT11', 15),
+(08032004, 'luminosidade','LDR5', 23),
+(05032009, 'bloqueio','TCRT5000', 10);
+SELECT * FROM sensor;
 
 CREATE TABLE registro(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    sensor_id INT,
+    idRegistro INT PRIMARY KEY AUTO_INCREMENT,
     temperatura DOUBLE,
-    local varchar(255),
+    local varchar(255), -- Mudar para geolocalizacao||Algo melhor
     data_hora DATETIME
 );
 
 INSERT INTO registro VALUES
-(DEFAULT, 1, 22.0, 'caminhão','2022-12-01 00:00:00'),
-(DEFAULT, 1, 22.0, 'caminhão','2022-12-01 00:50:00'),
-(DEFAULT, 1, 21.0, 'caminhão','2022-12-01 00:10:00'),
-(DEFAULT, 1, 21.5, 'caminhão','2022-12-01 00:15:00'),
-(DEFAULT, 1, 22.5, 'caminhão','2022-12-01 00:20:00'),
-(DEFAULT, 1, 21.0, 'caminhão','2022-12-01 00:25:00');
+(DEFAULT, 22.0, 'caminhão','2022-12-01 00:00:00'),
+(DEFAULT, 22.0, 'caminhão','2022-12-01 12:50:00'),
+(DEFAULT, 21.0, 'caminhão','2022-12-01 14:10:56'),
+(DEFAULT, 21.5, 'caminhão','2022-12-01 16:15:43'),
+(DEFAULT, 22.5, 'caminhão','2022-12-01 18:20:03'),
+(DEFAULT, 21.0, 'caminhão','2022-12-01 19:25:08');
+SELECT * FROM registro;
