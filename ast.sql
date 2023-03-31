@@ -50,3 +50,24 @@ INSERT INTO registro VALUES
 (DEFAULT, 22.5, 'caminhão','2022-12-01 18:20:03'),
 (DEFAULT, 21.0, 'caminhão','2022-12-01 19:25:08');
 SELECT * FROM registro;
+ALTER TABLE sensor ADD COLUMN statusSensor VARCHAR(7);
+SELECT * FROM sensor; -- constraint chk_statusSensor já criada, aceitando apenas valores ativo ou inativo na coluna statusSensor
+ALTER TABLE sensor ADD CONSTRAINT chk_statusSensor CHECK(statusSensor IN('Aativo', 'inativo'));
+
+DROP TABLE registro;
+
+CREATE TABLE registro(
+    idRegistro INT PRIMARY KEY AUTO_INCREMENT,
+    temperatura DOUBLE,
+    local varchar(255), -- Mudar para geolocalizacao||Algo melhor
+    data_hora DATETIME
+);
+
+INSERT INTO registro VALUES
+(DEFAULT, 22.0, null,'2022-12-01 00:00:00'),
+(DEFAULT, 22.0, null,'2022-12-01 12:50:00'),
+(DEFAULT, 21.0, null,'2022-12-01 14:10:56'),
+(DEFAULT, 21.5, null,'2022-12-01 16:15:43'),
+(DEFAULT, 22.5, null,'2022-12-01 18:20:03'),
+(DEFAULT, 21.0, null,'2022-12-01 19:25:08');
+SELECT * FROM registro;
