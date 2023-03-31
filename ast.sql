@@ -1,6 +1,7 @@
 CREATE DATABASE ast;
 USE ast;
--- Tabela de cadastro do cliente
+-- ver se precisa da tabela produto
+-- Criar uma tabela usuario
 CREATE TABLE cliente(
     idCliente INT PRIMARY KEY AUTO_INCREMENT,
     Cnpj char(14) NOT NULL,
@@ -26,7 +27,9 @@ CREATE TABLE sensor(
     modelo VARCHAR(255),
      valor DOUBLE
 );
-
+ALTER TABLE sensor ADD COLUMN statusSensor VARCHAR(7); 
+ALTER TABLE sensor ADD CONSTRAINT chk_statusSensor CHECK(statusSensor IN('Ativo', 'Inativo'));
+-- constraint chk_statusSensor já criada, aceitando apenas valores ativo ou inativo na coluna statusSensor
 
 INSERT INTO sensor VALUES
 (12022003, 'temperatura','LM35', 20),
@@ -35,39 +38,22 @@ INSERT INTO sensor VALUES
 (05032009, 'bloqueio','TCRT5000', 10);
 SELECT * FROM sensor;
 
+
+-- Colocar check se o transporte está parado ou em movimento, ou em manuntenção
 CREATE TABLE registro(
     idRegistro INT PRIMARY KEY AUTO_INCREMENT,
     temperatura DOUBLE,
-    local varchar(255), -- Mudar para geolocalizacao||Algo melhor
-    data_hora DATETIME
-);
-
-INSERT INTO registro VALUES
-(DEFAULT, 22.0, 'caminhão','2022-12-01 00:00:00'),
-(DEFAULT, 22.0, 'caminhão','2022-12-01 12:50:00'),
-(DEFAULT, 21.0, 'caminhão','2022-12-01 14:10:56'),
-(DEFAULT, 21.5, 'caminhão','2022-12-01 16:15:43'),
-(DEFAULT, 22.5, 'caminhão','2022-12-01 18:20:03'),
-(DEFAULT, 21.0, 'caminhão','2022-12-01 19:25:08');
-SELECT * FROM registro;
-ALTER TABLE sensor ADD COLUMN statusSensor VARCHAR(7);
-SELECT * FROM sensor; -- constraint chk_statusSensor já criada, aceitando apenas valores ativo ou inativo na coluna statusSensor
-ALTER TABLE sensor ADD CONSTRAINT chk_statusSensor CHECK(statusSensor IN('Aativo', 'inativo'));
-
-DROP TABLE registro;
-
-CREATE TABLE registro(
-    idRegistro INT PRIMARY KEY AUTO_INCREMENT,
-    temperatura DOUBLE,
-    local varchar(255), -- Mudar para geolocalizacao||Algo melhor
+    transporte varchar(45),
     data_hora DATETIME
 );
 
 INSERT INTO registro VALUES
 (DEFAULT, 22.0, null,'2022-12-01 00:00:00'),
-(DEFAULT, 22.0, null,'2022-12-01 12:50:00'),
-(DEFAULT, 21.0, null,'2022-12-01 14:10:56'),
-(DEFAULT, 21.5, null,'2022-12-01 16:15:43'),
-(DEFAULT, 22.5, null,'2022-12-01 18:20:03'),
-(DEFAULT, 21.0, null,'2022-12-01 19:25:08');
+(DEFAULT, 22.0, null,'2022-12-01 00:05:00'),
+(DEFAULT, 21.0, null,'2022-12-01 00:10:00'),
+(DEFAULT, 21.5, null,'2022-12-01 00:15:00'),
+(DEFAULT, 22.5, null,'2022-12-01 00:20:00'),
+(DEFAULT, 21.0, null,'2022-12-01 00:25:00');
 SELECT * FROM registro;
+-- Criar tabela pedido e colocar a localização, tipo_transporte
+-- que vai ser relacionada com a tabela registro e empresa
