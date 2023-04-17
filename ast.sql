@@ -1,6 +1,5 @@
 CREATE DATABASE ast;
 USE ast;
-
 -- Tabela onde cadastramos os dados de nossos clientes
 Create Table clienteEmpresa(
     idCliente Int Primary Key Auto_increment,
@@ -31,7 +30,9 @@ Create Table Usuario(
     Senha Char(8) Not Null,
     fkEmpresa Int,
     Foreign Key (fkEmpresa) References clienteEmpresa(idCliente)
-);
+)AUTO_INCREMENT = 50;
+
+
 
 Insert Into Usuario Values 
 (Null,'08517408985','Pedro','(93)998644378','pedro@newfish','128394', 1),
@@ -50,26 +51,29 @@ Create Table Sensor(
     tipo_sensor Varchar(25) Not Null,
     modelo_sensor Varchar(20) Not Null,
 	valor_sensor Varchar(25) Not Null,
-    status_sensor Varchar(8) Check(status_sensor in('Ativo', 'Inativo')) Not Null
-);
+    status_sensor Varchar(8) Check(status_sensor in('Ativo', 'Inativo')) Not Null,
+    fkCliente INT,
+    FOREIGN KEY (fkCliente) references clienteEmpresa(idCliente)
+) AUTO_INCREMENT = 10;
 
 Insert Into Sensor Values
-(12022003, 'Temperatura','LM35','R$20', 'Ativo'),
-(07042019, 'Umidade e temperatura','DHT11','R$15', 'Inativo'),
-(08032004, 'luminosidade','LDR5', 'R$23' , 'Inativo'),
-(05032009, 'Bloqueio','TCRT5000', 'R$10' , 'Inativo');
+(12022003, 'Temperatura','LM35','R$20', 'Ativo', 1),
+(07042019, 'Umidade e temperatura','DHT11','R$15', 'Inativo', 2),
+(08032004, 'luminosidade','LDR5', 'R$23' , 'Inativo', 3),
+(05032009, 'Bloqueio','TCRT5000', 'R$10' , 'Inativo', 4);
 SELECT * FROM sensor;
-
+SELECT * FROM sensor Join cliente on fkCliente = idCliente;
 
 -- Nessa tabela é onde fica os registros dos sensores juntamente com a situação do transporte.
 Create Table leituraDiaria(
-    idLeitura Int Primary Key Auto_increment,
+    idLeitura INT AUTO_INCREMENT,
     temperatura_sensor Double Not Null,
     status_transporte Varchar(40) Check(status_transporte in('Transporte parado', 'Em trânsito', 'Em manuntenção')) Not Null,
     data_hora Datetime Not Null,
     fkSensor Int,
-    Foreign Key (fkSensor) References Sensor(numero_serie)
-)auto_increment = 100;
+    Foreign Key (fkSensor) References Sensor(numero_serie),
+    CONSTRAINT pkLeituraDiaria PRIMARY KEY (idLeitura, data_hora, fkSensor)
+)auto_increment = 100;	
 
 Insert Into leituraDiaria Values
 (Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003),
