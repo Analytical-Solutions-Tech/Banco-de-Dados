@@ -16,4 +16,5 @@ Em nosso Banco de Dados temos 3 tabelas.
 
 # Modelagem do nosso banco de dados:
 
-![Modelagem-png](https://user-images.githubusercontent.com/111745761/229803260-4633d5fd-572d-4c79-b2ba-b93ce9db7629.png)
+
+![imagem-modelagem](https://user-images.githubusercontent.com/111745761/232794247-c2a64702-3fc5-41b9-a071-26a1614c6754.png)
