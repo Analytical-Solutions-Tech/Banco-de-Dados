@@ -1,4 +1,4 @@
-# Banco-de-Dados
+ # Banco-de-Dados
 - Script do banco de dados da Analytical Solutions Tech
 Em nosso Banco de Dados temos 3 tabelas.
 
@@ -17,4 +17,4 @@ Em nosso Banco de Dados temos 3 tabelas.
 # Modelagem do nosso banco de dados:
 
 
-![imagem-modelagem](https://user-images.githubusercontent.com/111745761/232794247-c2a64702-3fc5-41b9-a071-26a1614c6754.png)
+![imagem-modelagem](https://user-images.githubusercontent.com/file:///C:/Users/chris/Pictures/AstModelagemAtualizada.png)
