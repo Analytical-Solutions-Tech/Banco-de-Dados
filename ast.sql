@@ -5,19 +5,19 @@ Create Table clienteEmpresa(
     idCliente Int Primary Key Auto_increment,
     Cnpj Char(14) Not Null,
     Nome_fantasia Varchar(25) Not Null,
-    Contato Char(15) Not Null,
-    Email Varchar(255) Not Null, 
-    Senha Char(8) Not Null 
+    Contato varchar(13) Not Null,
+    Email Varchar(255) Not Null
+   
 );
 
 Insert Into clienteEmpresa Values
-(Null, '19773504000172', 'Headline Fish', '(61) 3452-2863', 'headline.fish@gmail.com', '6Ll3h9*J'),
-(Null, '19773504000172','Fish Eat', '(61) 2784-4764', 'fish.eat@gmil.com', 'U!mA4DpG'),
-(Null, '19773504000172', 'Love Fish', '(67) 2549-8845', 'love.fish@gmail.com','Oe3s21r1'),
-(Null, '19773504000172', 'Want Fish', '(11) 3434-7103','want.fish@gmail.com','jT999!hX'),
-(Null, '19773504000172', 'Fish Navio','(69) 2616-5122', 'fish.navio@gmail.com', '8oC7u8%'),
-(Null, '19773504000172', 'Fish Bem','(96) 2342-4576','fish.bem@gmail.com','6D^z121'),
-(Null, '19773504000172', 'New Fish','(63) 3525-4692','new.fish@gmail.com','6D^z1293');
+(Null, '19773504000172', 'Headline Fish', '5561934522863', 'headline.fish@gmail.com'),
+(Null, '19773504000172','Fish Eat', '556127844764', 'fish.eat@gmil.com'),
+(Null, '19773504000172', 'Love Fish', '5567925498845', 'love.fish@gmail.com'),
+(Null, '19773504000172', 'Want Fish', '551134347103','want.fish@gmail.com'),
+(Null, '19773504000172', 'Fish Navio','556926165122', 'fish.navio@gmail.com'),
+(Null, '19773504000172', 'Fish Bem','559623424576','fish.bem@gmail.com'),
+(Null, '19773504000172', 'New Fish','5511935254692','new.fish@gmail.com');
 SELECT * FROM Cliente;
 
 -- Tabela onde a empresa cadastra os dados de seus colaboradores
