@@ -22,25 +22,26 @@ SELECT * FROM Cliente;
 
 -- Tabela onde a empresa cadastra os dados de seus colaboradores
 Create Table Usuario( 
-	idUsuario Int Primary Key Auto_increment,
+	idUsuario Int ,
     Cpf Char(11) Not Null ,
     Nome Varchar(100) Not Null,
-    Contato Char(15) Not Null,
+    Contato varchar(13) Not Null,
     Email Varchar(255) Not Null,
     Senha Char(8) Not Null,
     fkEmpresa Int,
-    Foreign Key (fkEmpresa) References clienteEmpresa(idCliente)
-)AUTO_INCREMENT = 50;
+    FOREIGN KEY (fkEmpresa) references clienteEmpresa(idCliente),
+    constraint primary key (fkEmpresa, idUsuario) 
+) ;
 
 
 
 Insert Into Usuario Values 
-(Null,'08517408985','Pedro','(93)998644378','pedro@newfish','128394', 1),
-(Null,'77468787506','Inacio','(95)995525657','inacio@fishbem','86245', 3),
-(Null,'84942442800','Diogo','(46)999785779','diogo@fishnavio','12746', 2),
-(Null,'88283094580','Amanda','(51)968928134','amanda@wantfish','92345', 4),
-(Null,'52783362503','Abraao','(84)988421486','abraao@fisheat','52345', 5),
-(Null,'75478786365','Lucas','(22)967167494','lucas@lovefish','84365', 1);
+(50,'08517408985','Pedro','5511939986443','pedro@newfish','128394', 1),
+(51,'77468787506','Inacio','5595995525645','inacio@fishbem','86245', 3),
+(52,'84942442800','Diogo','5546999785714','diogo@fishnavio','12746', 2),
+(53,'88283094580','Amanda','5551968928115','amanda@wantfish','92345', 4),
+(54,'52783362503','Abraao','5584988421486','abraao@fisheat','52345', 5),
+(55,'75478786365','Lucas','5522967167494','lucas@lovefish','84365', 1);
 SELECT * FROM Usuario;
 SELECT * FROM Usuario Join clienteEmpresa on fkEmpresa = idCliente;
 
@@ -62,7 +63,7 @@ Insert Into Sensor Values
 (08032004, 'luminosidade','LDR5', 'R$23' , 'Inativo', 3),
 (05032009, 'Bloqueio','TCRT5000', 'R$10' , 'Inativo', 4);
 SELECT * FROM sensor;
-SELECT * FROM sensor Join cliente on fkCliente = idCliente;
+SELECT * FROM sensor Join clienteEmpresa on fkCliente = idCliente;
 
 -- Nessa tabela é onde fica os registros dos sensores juntamente com a situação do transporte.
 Create Table leituraDiaria(

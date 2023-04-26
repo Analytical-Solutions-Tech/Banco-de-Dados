@@ -14,7 +14,3 @@ Em nosso Banco de Dados temos 3 tabelas.
 # Tabela Leitura Diária:
 - Nessa tabela guardamos o registro dos sensores, ou seja, todos os dados recebidos por eles juntamente com o status do transporte. Ela é ligada com a <b>Tabela Sensor</b>
 
-# Modelagem do nosso banco de dados:
-
-
-![imagem-modelagem](https://user-images.githubusercontent.com/file:///C:/Users/chris/Pictures/AstModelagemAtualizada.png)
