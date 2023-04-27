@@ -74,6 +74,7 @@ Create Table leituraDiaria(
     Foreign Key (fkSensor) References Sensor(numero_serie),
     CONSTRAINT pkLeituraDiaria PRIMARY KEY (idLeitura, data_hora, fkSensor)
 )auto_increment = 100;	
+-- temperatura_sensor alterada para registro_sensor
 
 Insert Into leituraDiaria Values
 (Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003),
@@ -84,3 +85,7 @@ Insert Into leituraDiaria Values
 (NUll, 21.0, 'Em trânsito' ,'2022-12-01 00:25:00', 12022003);
 SELECT * FROM leituraDiaria;
 SELECT* FROM Sensor Join leituraDiaria on fkSensor = numero_serie;
+alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
+use ast;
+alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
+
