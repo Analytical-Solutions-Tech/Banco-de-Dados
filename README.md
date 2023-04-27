@@ -1,4 +1,4 @@
-# Banco-de-Dados
+ # Banco-de-Dados
 - Script do banco de dados da Analytical Solutions Tech
 Em nosso Banco de Dados temos 3 tabelas.
 
@@ -14,6 +14,3 @@ Em nosso Banco de Dados temos 3 tabelas.
 # Tabela Leitura Diária:
 - Nessa tabela guardamos o registro dos sensores, ou seja, todos os dados recebidos por eles juntamente com o status do transporte. Ela é ligada com a <b>Tabela Sensor</b>
 
-# Modelagem do nosso banco de dados:
-
-![Modelagem-png](https://user-images.githubusercontent.com/111745761/229803260-4633d5fd-572d-4c79-b2ba-b93ce9db7629.png)
