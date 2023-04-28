@@ -68,13 +68,14 @@ SELECT * FROM sensor Join clienteEmpresa on fkCliente = idCliente;
 -- Nessa tabela é onde fica os registros dos sensores juntamente com a situação do transporte.
 Create Table leituraDiaria(
     idLeitura INT AUTO_INCREMENT,
-    temperatura_sensor Double Not Null,
+    registro_sensor Double Not Null,
     status_transporte Varchar(40) Check(status_transporte in('Transporte parado', 'Em trânsito', 'Em manuntenção')) Not Null,
     data_hora Datetime Not Null,
     fkSensor Int,
     Foreign Key (fkSensor) References Sensor(numero_serie),
     CONSTRAINT pkLeituraDiaria PRIMARY KEY (idLeitura, data_hora, fkSensor)
 )auto_increment = 100;	
+-- temperatura_sensor alterada para registro_sensor
 
 Insert Into leituraDiaria Values
 (Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003),
