@@ -86,3 +86,7 @@ Insert Into leituraDiaria Values
 (NUll, 21.0, 'Em trânsito' ,'2022-12-01 00:25:00', 12022003);
 SELECT * FROM leituraDiaria;
 SELECT* FROM Sensor Join leituraDiaria on fkSensor = numero_serie;
+alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
+use ast;
+alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
+
