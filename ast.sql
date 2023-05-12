@@ -7,7 +7,6 @@ Create Table clienteEmpresa(
     Nome_fantasia Varchar(25) Not Null,
     Contato varchar(13) Not Null,
     Email Varchar(255) Not Null
-   
 );
 
 Insert Into clienteEmpresa Values
@@ -30,21 +29,48 @@ Create Table Usuario(
     Senha Char(8) Not Null,
     fkEmpresa Int,
     FOREIGN KEY (fkEmpresa) references clienteEmpresa(idCliente),
+    fkPermissao Int,
+    FOREIGN KEY (fkPermissao) references permissionamento(idPermissao),
     constraint primary key (fkEmpresa, idUsuario) 
 ) ;
 
 
-
+-- Rever inserts (dando ERRO)
 Insert Into Usuario Values 
-(50,'08517408985','Pedro','5511939986443','pedro@newfish','128394', 1),
-(51,'77468787506','Inacio','5595995525645','inacio@fishbem','86245', 3),
-(52,'84942442800','Diogo','5546999785714','diogo@fishnavio','12746', 2),
-(53,'88283094580','Amanda','5551968928115','amanda@wantfish','92345', 4),
-(54,'52783362503','Abraao','5584988421486','abraao@fisheat','52345', 5),
-(55,'75478786365','Lucas','5522967167494','lucas@lovefish','84365', 1);
+(50,'08517408985','Pedro','5511939986443','pedro@newfish','128394', 1, 1),
+(51,'77468787506','Inacio','5595995525645','inacio@fishbem','86245', 3, 2),
+(52,'84942442800','Diogo','5546999785714','diogo@fishnavio','12746', 2, 3),
+(53,'88283094580','Amanda','5551968928115','amanda@wantfish','92345', 4, 1),
+(54,'52783362503','Abraao','5584988421486','abraao@fisheat','52345', 5, 2),
+(55,'75478786365','Lucas','5522967167494','lucas@lovefish','84365', 1, 3);
 SELECT * FROM Usuario;
 SELECT * FROM Usuario Join clienteEmpresa on fkEmpresa = idCliente;
 
+
+-- Tabela onde temos todos os permissionamentos dos úsuarios
+create user 'insert'@'localhost' IDENTIFIED by 'insert';
+grant insert on historicoLeitura to 'insert'@'localhost';
+
+create user 'select'@'localhost' IDENTIFIED by 'select';
+grant insert on historicoLeitura to 'select'@'localhost';
+
+create user 'alter'@'localhost' IDENTIFIED by 'alter';
+grant insert on historicoLeitura to 'alter'@'localhost';
+
+Create Table permissionamento (
+idPermissao INT PRIMARY KEY AUTO_INCREMENT,
+permissoes VARCHAR(45),
+check (permissoes in('Insert','Select','Alter')),
+nivel CHAR(1)
+);
+
+Insert into permissionamento values
+(null, 'Insert', '1'),
+(null, 'Select', '2'),
+(null, 'Alter', '3');
+
+SELECT * FROM permissionamento;
+SELECT * FROM permissionamento Join Usuario on fkPermissao = idUsuario;
 
 -- Tabela onde registramos o sensor em si. Seja o tipo dele, seu valor e seu andamento.
 Create Table Sensor(
@@ -65,8 +91,24 @@ Insert Into Sensor Values
 SELECT * FROM sensor;
 SELECT * FROM sensor Join clienteEmpresa on fkCliente = idCliente;
 
+-- Tabela N:N onde podemos ver os registros de cada sensor em cada transpoorte específico
+Create table temperatura_por_transporte (
+idTransporte Int PRIMARY KEY AUTO_INCREMENT,
+fkCliente Int,
+ FOREIGN KEY (fkCliente) references clienteEmpresa(idCliente),
+ fkLeitura int,
+  Foreign Key (fkLeitura) References historicoLeitura(idLeitura),
+  fkSensor int,
+  Foreign Key (fkSensor) References sensor(numero_serie)
+);
+
+Insert into temperatura_por_transporte values
+(null, 1, 100, 10),
+(null, 2, 101, 11),
+(null, 3, 102, 12);
+
 -- Nessa tabela é onde fica os registros dos sensores juntamente com a situação do transporte.
-Create Table leituraDiaria(
+Create Table historicoLeitura(
     idLeitura INT AUTO_INCREMENT,
     registro_sensor Double Not Null,
     status_transporte Varchar(40) Check(status_transporte in('Transporte parado', 'Em trânsito', 'Em manuntenção')) Not Null,
@@ -77,16 +119,14 @@ Create Table leituraDiaria(
 )auto_increment = 100;	
 -- temperatura_sensor alterada para registro_sensor
 
-Insert Into leituraDiaria Values
+Insert Into historicoLeitura Values
 (Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003),
 (Null, 22.0, 'Em trânsito','2022-12-01 00:05:00', 12022003),
 (Null, 21.0, 'Em manuntenção' ,'2022-12-01 00:10:00', 12022003),
 (Null, 21.5, 'Transporte parado' ,'2022-12-01 00:15:00', 12022003),
 (Null, 22.5, 'Em manuntenção' ,'2022-12-01 00:20:00', 12022003),
 (NUll, 21.0, 'Em trânsito' ,'2022-12-01 00:25:00', 12022003);
-SELECT * FROM leituraDiaria;
-SELECT* FROM Sensor Join leituraDiaria on fkSensor = numero_serie;
-alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
-use ast;
-alter table leituraDiaria rename column temperatura_sensor to registro_sensor;
+SELECT * FROM historicoLeitura;
+SELECT* FROM Sensor Join historicoLeitura on fkSensor = numero_serie;
+
 
