@@ -1,6 +1,5 @@
 CREATE DATABASE ast;
 USE ast;
-
 -- Tabela onde cadastramos os dados de nossos clientes
 Create Table clienteEmpresa(
     idCliente Int Primary Key Auto_increment,
@@ -38,7 +37,7 @@ SELECT * FROM permissionamento Join Usuario on fkPermissao = idUsuario;
 
 -- Tabela onde a empresa cadastra os dados de seus colaboradores
 Create Table Usuario( 
-	idUsuario Int,
+	idUsuario Int primary key auto_increment,
     Cpf Char(11) Not Null ,
     Nome Varchar(100) Not Null,
     Contato varchar(13) Not Null,
@@ -47,8 +46,8 @@ Create Table Usuario(
     fkEmpresa Int,
     FOREIGN KEY (fkEmpresa) references clienteEmpresa(idCliente),
     fkPermissao Int,
-    FOREIGN KEY (fkPermissao) references permissionamento(idPermissao),
-    constraint primary key (fkEmpresa, fkPermissao, idUsuario) 
+    FOREIGN KEY (fkPermissao) references permissionamento(idPermissao)
+   
 );
 
 
@@ -118,8 +117,6 @@ Insert into temperatura_por_transporte values
 
 select * from historicoLeitura;
 
-INSERT INTO historicoLeitura VALUES 
-(null, 30, "Em trânsito", "2022-12-01 00:55:00", 12022003, 4);
 
 select * from usuario;
 
@@ -144,12 +141,11 @@ Create Table historicoLeitura(
 INSERT INTO historicoLeitura (registro_sensor, status_transporte, data_hora, fkSensor, fkTemperaturaTransporte) VALUES (20, "Em trânsito", now(), 12022003, 4);
 
 Insert Into historicoLeitura Values
-(Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003, 4),
-(Null, 22.0, 'Em trânsito','2022-12-01 00:05:00', 12022003, 4),
-(Null, 21.0, 'Em manuntenção' ,'2022-12-01 00:10:00', 12022003, 4),
-(Null, 21.5, 'Transporte parado' ,'2022-12-01 00:15:00', 12022003, 4),
-(Null, 22.5, 'Em manuntenção' ,'2022-12-01 00:20:00', 12022003, 4),
-(NUll, 21.0, 'Em trânsito' ,'2022-12-01 00:25:00', 12022003,4 );
+(Null, 22.0, 'Transporte Parado' ,'2022-12-01 00:00:00', 12022003, 1),
+(Null, 22.0, 'Em trânsito','2022-12-01 00:05:00', 07042019, 2),
+(Null, 21.0, 'Em manuntenção' ,'2022-12-01 00:10:00', 08032004, 3),
+(Null, 21.5, 'Transporte parado' ,'2022-12-01 00:15:00', 05032009, 1);
+
 SELECT * FROM historicoLeitura;
 
 select * from temperatura_por_transporte;
