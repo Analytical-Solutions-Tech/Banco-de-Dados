@@ -141,3 +141,43 @@ Insert Into historicoLeitura Values
 (NUll, 21.0, 'Em trânsito' ,'2022-12-01 00:25:00', 12022003,4 );
 SELECT * FROM historicoLeitura;
 truncate table historicoLeitura;
+drop table classificacao_temperatura;
+
+-- Criação dos triggers
+DELIMITER $$
+	CREATE TRIGGER trigger_clas_temp
+	AFTER INSERT
+		ON historicoLeitura
+		FOR EACH ROW
+		BEGIN
+            IF (new.registro_sensor <= -28.99 OR new.registro_sensor >= -15.99) THEN
+				INSERT INTO classificacao_temperatura (fk_historicoLeitura, descricao) VALUES (new.idLeitura, "Crítica");
+			ELSEIF(new.registro_sensor <= -27.99) THEN
+				INSERT INTO classificacao_temperatura (fk_historicoLeitura, descricao) VALUES (new.idLeitura, "Preocupante");
+			ELSEIF(new.registro_sensor <= -25) THEN
+				INSERT INTO classificacao_temperatura (fk_historicoLeitura, descricao) VALUES (new.idLeitura, "Incorreta");
+            ELSE
+				INSERT INTO classificacao_temperatura (fk_historicoLeitura, descricao) VALUES (new.idLeitura, "Ideal");
+			END IF;
+		END$$
+DELIMITER ;
+show triggers;
+
+drop trigger trigger_clas_temp;
+
+-- Tabela onde guarda as classificações das temperaturas
+create table classificacao_temperatura(
+id_classificacao int primary key auto_increment,
+fk_historicoLeitura int,
+	constraint fk_historicoLeitura foreign key (fk_historicoLeitura) references historicoLeitura(idLeitura),
+descricao varchar(80)
+);
+desc historicoLeitura;
+select * from classificacao_temperatura;
+
+
+-- Lógica para selecionar as classificações da temperatura baseado em um transporte
+select count(descricao) qtdDesc, descricao from classificacao_temperatura 
+JOIN historicoleitura ON classificacao_temperatura.fk_historicoLeitura = historicoLeitura.idLeitura 
+where fktemperaturatransporte = 5
+group by descricao;
